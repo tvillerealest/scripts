@@ -30,18 +30,17 @@ NUM() {
 echo "Generating..."
 sleep 4
 export genvalue="$(cat /dev/random | od -An -N2 -i)"
-echo "Your generated value is $genvalue"
+echo "Your generated value is: $genvalue"
 }
 
 
-TRY NUM
-
+CASE() {
 echo -n "Do you want to run this again? [yes or no]: "
 read yno
 case $yno in
-
         [yY] | [yY][Ee][Ss] )
                 TRY NUM;
+		TRY CASE
 		;;
         [nN] | [n|N][O|o] )
                 echo "";
@@ -49,9 +48,12 @@ case $yno in
                 ;;
         *) echo "Please answer yes or no"
             ;;
-esac
+	esac
+}
 
 
+TRY NUM
+TRY CASE
 
 echo "you exited"
 
