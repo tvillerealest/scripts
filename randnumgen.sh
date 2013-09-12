@@ -29,7 +29,8 @@ echo ""
 NUM() {
 echo "Generating..."
 sleep 4
-cat /dev/random | od -An -N2 -i
+export genvalue="$(cat /dev/random | od -An -N2 -i)"
+echo "Your generated value is $genvalue"
 }
 
 
