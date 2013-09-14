@@ -29,7 +29,7 @@ echo ""
 NUM() {
 echo "Generating..."
 sleep 4
-export genvalue="$(cat /dev/random | od -An -N2 -i)"
+export genvalue="$(cat /dev/random | od -An -N2 -i | tr - '0-9')"
 echo "Your generated value is: $genvalue"
 }
 
@@ -42,12 +42,12 @@ case $yno in
                 TRY NUM;
 		TRY CASE
 		;;
-        [nN] | [n|N][O|o] )
-                echo "";
+        [nN] | [nN][Oo] )
                 exit 1
-                ;;
-        *) echo "Please answer yes or no"
-            ;;
+		;;
+
+        * )	echo "Please answer yes or no"
+            	TRY CASE;;
 	esac
 }
 
