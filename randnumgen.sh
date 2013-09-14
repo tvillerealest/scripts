@@ -25,7 +25,6 @@ echo ""
 echo ""
 echo ""
 
-
 NUM() {
 echo "Generating..."
 sleep 4
@@ -43,7 +42,7 @@ case $yno in
 		TRY CASE
 		;;
         [nN] | [nN][Oo] )
-                exit 1
+                TRY CONFIRM
 		;;
 
         * )	echo "Please answer yes or no"
@@ -51,12 +50,21 @@ case $yno in
 	esac
 }
 
+CONFIRM() {
+echo -n "Confirm exit? [yes or no]: "
+read yno
+case $yno in
+	[yY] | [yY][Ee][Ss] )
+		exit 1;;
+	[nN] | [nN][Oo] )
+		echo "";
+		TRY CASE;;
+	* )	echo "Confirm exit?";
+		TRY CONFIRM
+	;;
+	esac
+}
 
 TRY NUM
 TRY CASE
-
-echo "you exited"
-
-
-
 
