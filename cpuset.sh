@@ -6,6 +6,8 @@ TRY() { "$@" || DIE "$@"; }
 
 SET_CPU() {
 echo -n "Setting CPU freq's"
+echo ""
+sleep 2
 sudo cpufreq-set -c 0 --max 1000000 -g userspace
 sudo cpufreq-set -c 1 --max 1000000 -g userspace
 }
@@ -15,7 +17,11 @@ echo -n "Lower CPU speed to save battery life? [yes or no]: "
 read yno
 case $yno in
         [yY] | [yY][Ee][Ss] )
-                TRY SET_CPU;;
+                TRY SET_CPU;
+		clear;
+		sleep 2
+		echo "CPU Frequencies set!";
+		sleep 2;;
         [nN] | [nN][Oo] )
                 TRY CONFIRM;;
         * )        echo "Please answer yes or no"
