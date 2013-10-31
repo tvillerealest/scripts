@@ -1,8 +1,8 @@
 #!/bin/sh
-
 DIE() { LOG "FAILED : $*"; exit 1; }
 LOG() { printf "\n$@\n\n"; }
 TRY() { "$@" || DIE "$@"; }
+
 
 SET_CPU() {
 echo -n "Setting CPU freq's"
@@ -44,4 +44,18 @@ case $yno in
         esac
 }
 
-TRY CASE
+EXIT() {
+exit;
+}
+
+CHECK(){
+    [ "$(cat /sys/bus/cpu/devices/cpu1/cpufreq/scaling_max_freq
+)" = "1000000" ]
+rc=$?
+if [ $rc != 0 ] ; then
+TRY EXIT
+else TRY CASE
+fi
+}
+
+TRY CHECK
